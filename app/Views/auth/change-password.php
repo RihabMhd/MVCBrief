@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Job Portal</title>
+    <title>Change Password</title>
     <style>
         * {
             margin: 0;
@@ -21,7 +21,7 @@
             padding: 20px;
         }
 
-        .login-container {
+        .password-container {
             background: white;
             padding: 40px;
             border-radius: 10px;
@@ -30,18 +30,18 @@
             max-width: 400px;
         }
 
-        .login-header {
+        .password-header {
             text-align: center;
             margin-bottom: 30px;
         }
 
-        .login-header h1 {
+        .password-header h1 {
             color: #333;
             font-size: 28px;
             margin-bottom: 10px;
         }
 
-        .login-header p {
+        .password-header p {
             color: #666;
             font-size: 14px;
         }
@@ -72,7 +72,7 @@
             border-color: #667eea;
         }
 
-        .btn-login {
+        .btn-change {
             width: 100%;
             padding: 12px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -85,24 +85,22 @@
             transition: transform 0.2s;
         }
 
-        .btn-login:hover {
+        .btn-change:hover {
             transform: translateY(-2px);
         }
 
-        .register-link {
+        .back-link {
             text-align: center;
             margin-top: 20px;
-            color: #666;
+        }
+
+        .back-link a {
+            color: #667eea;
+            text-decoration: none;
             font-size: 14px;
         }
 
-        .register-link a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .register-link a:hover {
+        .back-link a:hover {
             text-decoration: underline;
         }
 
@@ -127,10 +125,10 @@
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <div class="login-header">
-            <h1>Welcome Back</h1>
-            <p>Login to your account</p>
+    <div class="password-container">
+        <div class="password-header">
+            <h1>Change Password</h1>
+            <p>Update your account password</p>
         </div>
 
         <?php if (isset($_SESSION['error'])): ?>
@@ -151,22 +149,27 @@
             </div>
         <?php endif; ?>
 
-        <form action="/login" method="POST">
+        <form action="/change-password" method="POST">
             <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" required>
+                <label for="old_password">Current Password</label>
+                <input type="password" id="old_password" name="old_password" required>
             </div>
 
             <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" required>
+                <label for="new_password">New Password</label>
+                <input type="password" id="new_password" name="new_password" required>
             </div>
 
-            <button type="submit" class="btn-login">Login</button>
+            <div class="form-group">
+                <label for="confirm_password">Confirm New Password</label>
+                <input type="password" id="confirm_password" name="confirm_password" required>
+            </div>
+
+            <button type="submit" class="btn-change">Change Password</button>
         </form>
 
-        <div class="register-link">
-            Don't have an account? <a href="/register">Register here</a>
+        <div class="back-link">
+            <a href="/dashboard">← Back to Dashboard</a>
         </div>
     </div>
 </body>
