@@ -1,4 +1,8 @@
 <?php
+namespace App\Repository;
+
+use PDO;
+use App\Repository\BaseRepository;
 
 class UserRepository extends BaseRepository
 {

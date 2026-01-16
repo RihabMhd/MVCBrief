@@ -1,5 +1,6 @@
 <?php
-
+namespace App\Controllers;
+use App\Services\AuthService;
 class CandidateController
 {
     private AuthService $authService;
@@ -36,7 +37,7 @@ class CandidateController
             'user' => $user
         ];
         
-        require_once __DIR__ . '/../views/candidate/dashboard.php';
+        require_once __DIR__ . '/../views/candidate/dashboard.php'; 
     }
     
     private function redirect(string $path): void

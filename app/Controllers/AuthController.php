@@ -1,5 +1,7 @@
 <?php
-
+namespace App\Controllers;
+use App\Services\AuthService;
+use App\Services\ValidatorService;
 class AuthController
 {
     private AuthService $authService;
@@ -81,7 +83,7 @@ class AuthController
             'name' => $_POST['name'] ?? '',
             'email' => $_POST['email'] ?? '',
             'password' => $_POST['password'] ?? '',
-            'role_id' => $_POST['role_id'] ?? 2
+            'role_id' => $_POST['role_id'] ?? 3
         ];
         
   

@@ -1,5 +1,7 @@
 <?php
-
+namespace App\Repository;
+use App\Repository\BaseRepository;
+use PDO;
 class RoleRepository extends BaseRepository
 {
     

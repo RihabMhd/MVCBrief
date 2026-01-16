@@ -12,172 +12,426 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f5f5;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            color: #1a1a1a;
         }
 
         .navbar {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-            padding: 15px 30px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 16px 32px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 18px;
         }
 
         .navbar h1 {
-            font-size: 24px;
+            font-size: 20px;
+            font-weight: 600;
+            color: #1a1a1a;
+            letter-spacing: -0.3px;
         }
 
         .navbar-right {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 24px;
         }
 
-        .navbar-right span {
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-avatar {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
             font-size: 14px;
         }
 
-        .navbar-right a {
-            color: white;
-            text-decoration: none;
-            padding: 8px 16px;
-            background: rgba(255,255,255,0.2);
-            border-radius: 5px;
+        .user-name {
             font-size: 14px;
-            transition: background 0.3s;
-        }
-
-        .navbar-right a:hover {
-            background: rgba(255,255,255,0.3);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
-
-        .welcome-section {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-        }
-
-        .welcome-section h2 {
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        .welcome-section p {
-            color: #666;
-        }
-
-        .info-card {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-        }
-
-        .info-card h3 {
-            color: #f5576c;
-            margin-bottom: 15px;
-        }
-
-        .info-card p {
-            color: #666;
-            line-height: 1.6;
-            margin-bottom: 10px;
-        }
-
-        .action-section {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .action-section h3 {
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .action-buttons {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-        }
-
-        .action-btn {
-            display: block;
-            padding: 15px;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-            text-decoration: none;
-            text-align: center;
-            border-radius: 8px;
-            transition: transform 0.2s;
+            color: #4b5563;
             font-weight: 500;
         }
 
-        .action-btn:hover {
-            transform: translateY(-3px);
+        .logout-btn {
+            color: #6b7280;
+            text-decoration: none;
+            padding: 8px 16px;
+            background-color: transparent;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .logout-btn:hover {
+            background-color: #f9fafb;
+            border-color: #9ca3af;
+            color: #374151;
+        }
+
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 32px;
+        }
+
+        .page-header {
+            margin-bottom: 32px;
+        }
+
+        .page-header h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .page-header p {
+            font-size: 15px;
+            color: #6b7280;
         }
 
         .alert {
-            padding: 12px;
-            border-radius: 5px;
-            margin-bottom: 20px;
+            padding: 14px 18px;
+            border-radius: 8px;
+            margin-bottom: 24px;
             font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-left: 4px solid;
         }
 
         .alert-success {
-            background-color: #efe;
-            color: #3c3;
-            border: 1px solid #cfc;
+            background-color: #f0fdf4;
+            color: #166534;
+            border-left-color: #22c55e;
+        }
+
+        .alert-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #22c55e;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            padding: 28px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+        }
+
+        .card-header {
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 6px;
+        }
+
+        .card-subtitle {
+            font-size: 14px;
+            color: #6b7280;
+            line-height: 1.5;
+        }
+
+        .info-row {
+            display: flex;
+            padding: 14px 0;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-size: 14px;
+            color: #6b7280;
+            font-weight: 500;
+            flex: 0 0 140px;
+        }
+
+        .info-value {
+            font-size: 14px;
+            color: #111827;
+            font-weight: 500;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%);
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #f59e0b;
+            margin-bottom: 6px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: #6b7280;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .actions-section {
+            margin-top: 24px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 16px;
+        }
+
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+        }
+
+        .action-card {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            padding: 24px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .action-card:hover {
+            border-color: #f59e0b;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .action-icon {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .action-content {
+            flex: 1;
+        }
+
+        .action-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 4px;
+        }
+
+        .action-description {
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        @media (max-width: 1024px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-container {
+                padding: 14px 20px;
+            }
+
+            .navbar h1 {
+                font-size: 18px;
+            }
+
+            .user-name {
+                display: none;
+            }
+
+            .main-container {
+                padding: 24px 20px;
+            }
+
+            .page-header h2 {
+                font-size: 24px;
+            }
+
+            .action-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <nav class="navbar">
-        <h1>Candidate Dashboard</h1>
-        <div class="navbar-right">
-            <span>Welcome, <?php echo htmlspecialchars($data['user']['name']); ?></span>
-            <a href="/logout">Logout</a>
+        <div class="navbar-container">
+            <div class="navbar-brand">
+                <div class="logo">C</div>
+                <h1>Candidate Portal</h1>
+            </div>
+            <div class="navbar-right">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <?php echo strtoupper(substr($data['user']['name'], 0, 1)); ?>
+                    </div>
+                    <span class="user-name"><?php echo htmlspecialchars($data['user']['name']); ?></span>
+                </div>
+                <a href="/logout" class="logout-btn">Logout</a>
+            </div>
         </div>
     </nav>
 
-    <div class="container">
+    <div class="main-container">
         <?php if (isset($_SESSION['success'])): ?>
             <div class="alert alert-success">
-                <?php 
-                    echo $_SESSION['success']; 
-                    unset($_SESSION['success']);
-                ?>
+                <div class="alert-icon">✓</div>
+                <span><?php echo $_SESSION['success']; unset($_SESSION['success']); ?></span>
             </div>
         <?php endif; ?>
 
-        <div class="welcome-section">
-            <h2>Candidate Portal</h2>
-            <p>Welcome to your candidate dashboard</p>
+        <div class="page-header">
+            <h2>Dashboard</h2>
+            <p>Explore job opportunities and manage your applications</p>
         </div>
 
-        <div class="info-card">
-            <h3>Getting Started</h3>
-            <p>As a candidate, you have access to job listings and application features.</p>
-            <p>Your account email: <strong><?php echo htmlspecialchars($data['user']['email']); ?></strong></p>
+        <div class="dashboard-grid">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Account Information</h3>
+                    <p class="card-subtitle">Your profile and contact details</p>
+                </div>
+                <div>
+                    <div class="info-row">
+                        <div class="info-label">Full Name</div>
+                        <div class="info-value"><?php echo htmlspecialchars($data['user']['name']); ?></div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Email Address</div>
+                        <div class="info-value"><?php echo htmlspecialchars($data['user']['email']); ?></div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Account Type</div>
+                        <div class="info-value">Candidate</div>
+                    </div>
+                    <div class="info-row">
+                        <div class="info-label">Status</div>
+                        <div class="info-value" style="color: #22c55e;">Active</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Overview</h3>
+                    <p class="card-subtitle">Your activity summary</p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value">0</div>
+                        <div class="stat-label">Applications</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value">0</div>
+                        <div class="stat-label">Saved Jobs</div>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="action-section">
-            <h3>Quick Actions</h3>
-            <div class="action-buttons">
-                <a href="/change-password" class="action-btn">Change Password</a>
+        <div class="actions-section">
+            <h3 class="section-title">Quick Actions</h3>
+            <div class="action-grid">
+                <a href="/change-password" class="action-card">
+                    <div class="action-icon">🔐</div>
+                    <div class="action-content">
+                        <div class="action-title">Change Password</div>
+                        <div class="action-description">Update your security credentials</div>
+                    </div>
+                </a>
             </div>
         </div>
     </div>

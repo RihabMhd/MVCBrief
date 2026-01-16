@@ -1,5 +1,7 @@
 <?php
-
+namespace App\Services;
+use App\Services\ValidatorService;
+use App\Repository\UserRepository;
 class UserService
 {
     private UserRepository $userRepository;

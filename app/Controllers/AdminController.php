@@ -1,5 +1,8 @@
 <?php
-
+namespace App\Controllers;
+use App\Services\AuthService;
+use App\Services\UserService;
+use App\Services\RoleService;
 class AdminController
 {
     private AuthService $authService;
@@ -42,20 +45,6 @@ class AdminController
         ];
         
         require_once __DIR__ . '/../views/admin/dashboard.php';
-    }
-    
-    public function listUsers(): void
-    {
-        $this->requireAdmin();
-        $users = $this->userService->getAllUsers();
-        require_once __DIR__ . '/../views/admin/users/index.php';
-    }
-    
-    public function listRoles(): void
-    {
-        $this->requireAdmin();
-        $roles = $this->roleService->getAllRoles();
-        require_once __DIR__ . '/../views/admin/roles/index.php';
     }
     
     private function redirect(string $path): void

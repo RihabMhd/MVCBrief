@@ -1,5 +1,7 @@
 <?php
-
+namespace App\Services;
+use App\Repository\UserRepository;
+use Exception;
 class AuthService
 {
     private UserRepository $userRepository;

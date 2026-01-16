@@ -1,4 +1,7 @@
 <?php
+namespace App\Services;
+use App\Repository\RoleRepository;
+use Exception;
 
 class RoleService
 {

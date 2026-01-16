@@ -1,5 +1,6 @@
 <?php
-
+namespace App\Controllers;
+use App\Services\AuthService;
 class RecruiterController
 {
     private AuthService $authService;

@@ -1,5 +1,7 @@
 <?php
-require_once '../config/Database.php';
+namespace App\Repository;
+
+use PDO;
 
 abstract class BaseRepository
 {
