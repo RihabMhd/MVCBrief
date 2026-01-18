@@ -1,6 +1,7 @@
 <?php
 namespace App\Controllers;
 use App\Services\AuthService;
+
 class CandidateController
 {
     private AuthService $authService;
@@ -10,34 +11,16 @@ class CandidateController
         $this->authService = $authService;
     }
     
-    private function requireCandidate(): array
-    {
-        if (!$this->authService->isLoggedIn()) {
-            $_SESSION['error'] = 'please login to continue';
-            $this->redirect('/login');
-            exit;
-        }
-        
-        $user = $this->authService->getCurrentUser();
-        
-        if (!$this->authService->hasRole('candidate')) {
-            $_SESSION['error'] = 'access denied, candidate privileges required';
-            $this->redirect('/dashboard');
-            exit;
-        }
-        
-        return $user;
-    }
-    
     public function dashboard(): void
     {
-        $user = $this->requireCandidate();
+        // No need to check role here - RoleMiddleware already did it
+        $user = $this->authService->getCurrentUser();
         
         $data = [
             'user' => $user
         ];
         
-        require_once __DIR__ . '/../views/candidate/dashboard.php'; 
+        require_once __DIR__ . '/../views/candidate/dashboard.php';
     }
     
     private function redirect(string $path): void

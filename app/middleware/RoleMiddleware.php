@@ -1,6 +1,8 @@
 <?php
 
-require_once './Middleware.php';
+namespace App\Middleware;
+
+use App\Middleware\Middleware;
 
 class RoleMiddleware implements Middleware
 {
@@ -22,22 +24,30 @@ class RoleMiddleware implements Middleware
         return $next($request);
     }
 
-    private function getUserRole(): ?string
+    private function getUserRole(): ?int
     {
-        return $_SESSION['user']['role'] ?? null;
+        return $_SESSION['user']['role_id'] ?? null;
     }
 
-    private function hasRole(?string $userRole, array|string $requiredRoles): bool
+    private function hasRole(?int $userRoleId, array $requiredRoles): bool
     {
-        if (!$userRole) {
+        if (!$userRoleId) {
             return false;
         }
 
-        if (is_string($requiredRoles)) {
-            return $userRole === $requiredRoles;
+        $roleMap = [
+            'admin' => 1,
+            'recruiter' => 2,
+            'candidate' => 3
+        ];
+
+        foreach ($requiredRoles as $roleName) {
+            if (isset($roleMap[$roleName]) && $roleMap[$roleName] === $userRoleId) {
+                return true;
+            }
         }
 
-        return in_array($userRole, $requiredRoles);
+        return false;
     }
 
     private function unauthorized(): void

@@ -3,6 +3,7 @@ namespace App\Controllers;
 use App\Services\AuthService;
 use App\Services\UserService;
 use App\Services\RoleService;
+
 class AdminController
 {
     private AuthService $authService;
@@ -19,25 +20,8 @@ class AdminController
         $this->roleService = $roleService;
     }
     
-    private function requireAdmin(): void
-    {
-        if (!$this->authService->isLoggedIn()) {
-            $_SESSION['error'] = 'please login to continue';
-            $this->redirect('/login');
-            return;
-        }
-        
-        if (!$this->authService->hasRole('admin')) {
-            $_SESSION['error'] = 'access denied, admin privileges required';
-            $this->redirect('/dashboard');
-            return;
-        }
-    }
-    
     public function dashboard(): void
     {
-        $this->requireAdmin();
-        
         $data = [
             'total_users' => $this->userService->getUserCount(),
             'total_roles' => $this->roleService->getRoleCount(),
@@ -45,6 +29,26 @@ class AdminController
         ];
         
         require_once __DIR__ . '/../views/admin/dashboard.php';
+    }
+    
+    public function listUsers(): void
+    {
+        $data = [
+            'users' => $this->userService->getAllUsers(),
+            'current_user' => $this->authService->getCurrentUser()
+        ];
+        
+        require_once __DIR__ . '/../views/admin/users.php';
+    }
+    
+    public function listRoles(): void
+    {
+        $data = [
+            'roles' => $this->roleService->getAllRoles(),
+            'current_user' => $this->authService->getCurrentUser()
+        ];
+        
+        require_once __DIR__ . '/../views/admin/roles.php';
     }
     
     private function redirect(string $path): void

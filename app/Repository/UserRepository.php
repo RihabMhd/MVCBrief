@@ -1,94 +1,93 @@
 <?php
 namespace App\Repository;
 
-use PDO;
-use App\Repository\BaseRepository;
-
-class UserRepository extends BaseRepository
+class UserRepository
 {
-
-    public function getTableName(): string
+    private $db;
+    
+    public function __construct($db)
     {
-        return 'users';
+        $this->db = $db;
     }
-
+    
+    public function findAll(): array
+    {
+        $stmt = $this->db->query("SELECT * FROM users");
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
+    }
+    
+    public function findById(int $id): ?array
+    {
+        $stmt = $this->db->prepare("SELECT * FROM users WHERE id = :id");
+        $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
+        $stmt->execute();
+        
+        $user = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $user ?: null;
+    }
+    
     public function findByEmail(string $email): ?array
     {
-        $sql = "SELECT * FROM users WHERE email = :email";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute(['email' => $email]);
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result ?: null;
+        $stmt = $this->db->prepare("SELECT * FROM users WHERE email = :email");
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        
+        $user = $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $user ?: null;
     }
-
-
-    public function findByUsername(string $username): ?array
+    
+    public function create(array $userData): ?int
     {
-        $sql = "SELECT * FROM users WHERE name = :name";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute(['name' => $username]);
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result ?: null;
-    }
-
-
-    public function create(array $userData): int
-    {
-        $sql = "INSERT INTO users (name, email, password, role_id) VALUES (:name, :email, :password, :role_id)";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute([
-            'name' => $userData['name'],
-            'email' => $userData['email'],
-            'password' => $userData['password'], 
-            'role_id' => $userData['role_id']
-        ]);
-        return $this->db->lastInsertId();
-    }
-
-
-    public function update(int $id, array $data): bool
-    {
-
-        if (isset($data['password'])) {
-            $data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
+        $stmt = $this->db->prepare(
+            "INSERT INTO users (name, email, password, role_id) 
+             VALUES (:name, :email, :password, :role_id)"
+        );
+        
+        $stmt->bindParam(':name', $userData['name']);
+        $stmt->bindParam(':email', $userData['email']);
+        $stmt->bindParam(':password', $userData['password']);
+        $stmt->bindParam(':role_id', $userData['role_id'], \PDO::PARAM_INT);
+        
+        if ($stmt->execute()) {
+            return (int) $this->db->lastInsertId();
         }
-
-
-        $data['updated_at'] = date('Y-m-d H:i:s');
-
-
-        return parent::update($id, $data);
+        
+        return null;
     }
-
-
-    public function findByRole($role): array
+    
+    public function updatePassword(int $userId, string $hashedPassword): bool
     {
-
-        if (is_numeric($role)) {
-            $sql = "SELECT u.* FROM users u WHERE u.role_id = :role_id";
-            $stmt = $this->db->prepare($sql);
-            $stmt->execute(['role_id' => $role]);
-        } else {
-            $sql = "SELECT u.* FROM users u 
-                    INNER JOIN roles r ON u.role_id = r.id 
-                    WHERE r.name = :role_name";
-            $stmt = $this->db->prepare($sql);
-            $stmt->execute(['role_name' => $role]);
-        }
-
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt = $this->db->prepare(
+            "UPDATE users SET password = :password WHERE id = :id"
+        );
+        
+        $stmt->bindParam(':password', $hashedPassword);
+        $stmt->bindParam(':id', $userId, \PDO::PARAM_INT);
+        
+        return $stmt->execute();
     }
-
-
-    public function findByIdWithRole(int $id): ?array
+    
+    public function update(int $id, array $userData): bool
     {
-        $sql = "SELECT u.*, r.name as role_name, r.description as role_description 
-                FROM users u 
-                LEFT JOIN roles r ON u.role_id = r.id 
-                WHERE u.id = :id";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute(['id' => $id]);
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $result ?: null;
+        $stmt = $this->db->prepare(
+            "UPDATE users 
+             SET name = :name, email = :email, role_id = :role_id 
+             WHERE id = :id"
+        );
+        
+        $stmt->bindParam(':name', $userData['name']);
+        $stmt->bindParam(':email', $userData['email']);
+        $stmt->bindParam(':role_id', $userData['role_id'], \PDO::PARAM_INT);
+        $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
+        
+        return $stmt->execute();
+    }
+    
+    public function delete(int $id): bool
+    {
+        $stmt = $this->db->prepare("DELETE FROM users WHERE id = :id");
+        $stmt->bindParam(':id', $id, \PDO::PARAM_INT);
+        
+        return $stmt->execute();
     }
 }

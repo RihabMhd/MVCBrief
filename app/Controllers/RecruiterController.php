@@ -1,6 +1,7 @@
 <?php
 namespace App\Controllers;
 use App\Services\AuthService;
+
 class RecruiterController
 {
     private AuthService $authService;
@@ -10,28 +11,9 @@ class RecruiterController
         $this->authService = $authService;
     }
     
-    private function requireRecruiter(): array
-    {
-        if (!$this->authService->isLoggedIn()) {
-            $_SESSION['error'] = 'please login to continue';
-            $this->redirect('/login');
-            exit;
-        }
-        
-        $user = $this->authService->getCurrentUser();
-        
-        if (!$this->authService->hasRole('recruiter')) {
-            $_SESSION['error'] = 'access denied, recruiter privileges required';
-            $this->redirect('/dashboard');
-            exit;
-        }
-        
-        return $user;
-    }
-    
     public function dashboard(): void
     {
-        $user = $this->requireRecruiter();
+        $user = $this->authService->getCurrentUser();
         
         $data = [
             'user' => $user

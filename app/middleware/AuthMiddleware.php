@@ -1,5 +1,7 @@
 <?php
-require_once './Middleware.php';
+namespace App\Middleware;
+use App\Middleware\Middleware;
+
 class AuthMiddleware implements Middleware
 {
 
@@ -17,8 +19,8 @@ class AuthMiddleware implements Middleware
     }
 
     private function unauthenticated()
-    {
-        header('Location: /public/auth/login');
-        exit;
-    }
+{
+    header('Location: /login');  
+    exit;
+}
 }
